@@ -44,7 +44,7 @@ const PostItemWrapper = styled.article`
   transition: all 0.2s ease;
 
   &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
   }
 
   &::after {

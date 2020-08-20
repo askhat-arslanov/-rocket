@@ -34,9 +34,10 @@ const FilterInput = styled.input`
   width: 60rem;
   background: none;
   border: none;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #eee;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
+  color: #eee;
 
   &:focus {
     outline: none;

@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #eee;
+    background-color: #2b2b2b;
     font-family: 'Roboto', sans-serif;
     text-align: center;
   }

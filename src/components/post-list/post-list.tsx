@@ -1,10 +1,14 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import PostItem from '../post-item'
 import Spinner from '../spinner'
 import ApiServiceContext from '../api-service-context'
 
+interface PostListProps {
+  filterValue: string
+}
 interface PostItem {
   body: string
   id: number
@@ -20,10 +24,11 @@ interface UserItem {
   username: string
 }
 
-const PostList: FC = () => {
+const PostList: FC<PostListProps> = ({ filterValue }) => {
   const apiService = useContext(ApiServiceContext)
 
   const [posts, setPosts] = useState<PostItem[]>([])
+  const [filteredPosts, setFilteredPosts] = useState<PostItem[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -48,6 +53,7 @@ const PostList: FC = () => {
         })
 
         setPosts(posts)
+        setFilteredPosts(posts)
       })
       .catch(err => {
         console.log(err)
@@ -57,18 +63,29 @@ const PostList: FC = () => {
       })
   }, [])
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  useEffect(() => {
+    const filteredPosts = posts.filter(({ title }) => title.includes(filterValue))
+    setFilteredPosts(filteredPosts)
+  }, [filterValue])
+
+  if (isLoading) return <Spinner />
+
+  if (!filteredPosts.length) return <PostListEmptyMessage>Oops, there are no any posts</PostListEmptyMessage>
+
+  return  (
     <PostListWrapper>
-      {posts.map(({ body, id, title, fullName, nickName }) => (
+      {filteredPosts.map(({ body, id, title, fullName, nickName }) => (
         <PostItem key={id} title={title} body={body} fullName={fullName} nickName={nickName} />
       ))}
     </PostListWrapper>
   )
 }
 
-export default PostList
+const mapStateToProps = ({ filter }: { filter: any }) => ({
+  filterValue: filter.filterValue
+})
+
+export default connect(mapStateToProps)(PostList)
 
 const PostListWrapper = styled.div`
   max-width: 60rem;
@@ -78,4 +95,10 @@ const PostListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
+`
+
+const PostListEmptyMessage = styled.div`
+  padding: 5rem;
+  font-size: 2rem;
+  color: #333;
 `

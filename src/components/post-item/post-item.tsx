@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import styled from 'styled-components'
 
 interface PostItemProps {
@@ -9,10 +9,14 @@ interface PostItemProps {
 }
 
 const PostItem: FC<PostItemProps> = ({ title, body, fullName, nickName }) => {
+  const imageId = useMemo(() => {
+    return Math.floor(Math.random() * 100)
+  }, [])
+
   return (
     <PostItemWrapper>
       <PostItemBackground
-        src={`https://source.unsplash.com/random/400x300?sig=${getRandomNumber()}`}
+        src={`https://source.unsplash.com/random/400x300?sig=${imageId}`}
         alt="Background"
       />
 
@@ -26,11 +30,6 @@ const PostItem: FC<PostItemProps> = ({ title, body, fullName, nickName }) => {
 }
 
 export default PostItem
-
-// Helpers
-function getRandomNumber() {
-  return Math.floor(Math.random() * 100)
-}
 
 // Styles
 const PostItemWrapper = styled.article`

@@ -1,13 +1,20 @@
 import React from 'react'
+import styled from 'styled-components'
 
+import Filter from '../filter'
 import PostList from '../post-list'
 
 const App = () => {
   return (
-    <div className="app">
+    <AppWrapper>
+      <Filter />
       <PostList />
-    </div>
+    </AppWrapper>
   )
 }
 
 export default App
+
+const AppWrapper = styled.main`
+  padding: 2rem 0;
+`

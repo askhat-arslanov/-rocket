@@ -18,6 +18,7 @@ const PostItem: FC<PostItemProps> = ({ title, body, fullName, nickName }) => {
       <PostItemBackground
         src={`https://source.unsplash.com/random/400x300?sig=${imageId}`}
         alt="Background"
+        loading="lazy"
       />
 
       <PostItemTitle>{title}</PostItemTitle>

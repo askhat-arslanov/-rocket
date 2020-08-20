@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createGlobalStyle } from 'styled-components'
+import { Provider } from 'react-redux'
 
 import App from './components/app'
 import ApiServiceContext from './components/api-service-context'
 import ApiService from './services/api-service'
+import store from './store'
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -27,10 +29,12 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApiServiceContext.Provider value={new ApiService()}>
-      <GlobalStyle />
-      <App />
-    </ApiServiceContext.Provider>
+    <Provider store={store}>
+      <ApiServiceContext.Provider value={new ApiService()}>
+        <GlobalStyle />
+        <App />
+      </ApiServiceContext.Provider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

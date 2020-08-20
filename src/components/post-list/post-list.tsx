@@ -10,6 +10,8 @@ interface PostItem {
   id: number
   title: string
   userId: number
+  fullName?: string
+  nickName?: string
 }
 
 interface UserItem {
@@ -37,11 +39,11 @@ const PostList: FC = () => {
             name: 'Anonymous',
             username: 'Incognito'
           }
-          const { name, username } = targetUser
+          const { name: fullName, username: nickName } = targetUser
           return {
             ...post,
-            name,
-            username
+            fullName,
+            nickName
           }
         })
 
@@ -59,8 +61,8 @@ const PostList: FC = () => {
     <Spinner />
   ) : (
     <PostListWrapper>
-      {posts.map(({ body, id, title }) => (
-        <PostItem key={id} title={title} body={body} />
+      {posts.map(({ body, id, title, fullName, nickName }) => (
+        <PostItem key={id} title={title} body={body} fullName={fullName} nickName={nickName} />
       ))}
     </PostListWrapper>
   )
